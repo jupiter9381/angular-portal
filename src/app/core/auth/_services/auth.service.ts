@@ -19,7 +19,7 @@ export class AuthService {
 
   // Authentication/Authorization
   login(email: string, password: string): Observable<User> {
-    return this.http.post<User>(environment.apiUrl + API_USERS_URL, {email, password});
+    return this.http.post<User>(environment.apiUrl + API_USERS_URL + '/login', {email: email, password: password});
   }
 
   getUserByToken(): Observable<User> {
@@ -67,7 +67,7 @@ export class AuthService {
 
   // DELETE => delete the user from the server
   deleteUser(userId: number) {
-    const url = `${API_USERS_URL}/${userId}`;
+    const url = environment.apiUrl + `${API_USERS_URL}/${userId}`;
     return this.http.delete(url);
   }
 
@@ -117,7 +117,7 @@ export class AuthService {
     // Note: Add headers if needed (tokens/bearer)
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    return this.http.post<Role>(environment.apiUrl +  API_ROLES_URL, role, {headers: httpHeaders});
+    return this.http.post<Role>(environment.apiUrl +  API_ROLES_URL + '/create', role, {headers: httpHeaders});
   }
 
   // UPDATE => PUT: update the role on the server

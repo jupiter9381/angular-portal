@@ -24,7 +24,9 @@ mongoose.connect(MONGOURL)
   .catch(error => console.log(error));
 
 var userRouter = require('./backend/routes/user');
+var roleRouter = require('./backend/routes/role');
 app.use('/api/users', userRouter);
+app.use('/api/roles', roleRouter);
 module.exports = app;
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);

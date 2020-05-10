@@ -53,7 +53,7 @@ export function rolesReducer(state = initialRolesState, action: RoleActions): Ro
     case RoleActionTypes.RoleDeleted:
       return adapter.removeOne(action.payload.id, state);
     case RoleActionTypes.AllRolesLoaded:
-      return adapter.addAll(action.payload.roles, {
+      return adapter.addAll(action.payload.roles['items'], {
         ...state, isAllRolesLoaded: true
       });
     case RoleActionTypes.RolesPageCancelled:

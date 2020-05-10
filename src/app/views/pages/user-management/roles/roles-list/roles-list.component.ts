@@ -36,7 +36,7 @@ import { RoleEditDialogComponent } from '../role-edit/role-edit.dialog.component
 export class RolesListComponent implements OnInit, OnDestroy {
 	// Table fields
 	dataSource: RolesDataSource;
-	displayedColumns = ['select', 'id', 'title', 'actions'];
+	displayedColumns = ['title', 'actions'];
 	@ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 	@ViewChild('sort1', { static: true }) sort: MatSort;
 	// Filter fields

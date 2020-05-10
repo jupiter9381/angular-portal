@@ -63,7 +63,6 @@ export class RoleEffects {
         const result: QueryResultsModel = response[0];
         const lastQuery: QueryParamsModel = response[1];
         this.store.dispatch(this.hidePageLoadingDistpatcher);
-
         return new RolesPageLoaded({
           roles: result.items,
           totalCount: result.totalCount,
@@ -106,6 +105,7 @@ export class RoleEffects {
       ofType<RoleOnServerCreated>(RoleActionTypes.RoleOnServerCreated),
       mergeMap(({payload}) => {
         this.store.dispatch(this.showActionLoadingDistpatcher);
+        console.log(payload.role)
         return this.auth.createRole(payload.role).pipe(
           tap(res => {
             this.store.dispatch(new RoleCreated({role: res}));
