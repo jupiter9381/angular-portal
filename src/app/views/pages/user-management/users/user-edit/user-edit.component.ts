@@ -35,7 +35,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 	oldUser: User;
 	selectedTab = 0;
 	loading$: Observable<boolean>;
-	rolesSubject = new BehaviorSubject<number[]>([]);
+	rolesSubject = new BehaviorSubject<string>('');
 	addressSubject = new BehaviorSubject<Address>(new Address());
 	soicialNetworksSubject = new BehaviorSubject<SocialNetworks>(new SocialNetworks());
 	userForm: FormGroup;
@@ -74,13 +74,13 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
 		const routeSubscription =  this.activatedRoute.params.subscribe(params => {
 			const id = params.id;
+			console.log(params.id);
 			if (id && id > 0) {
 				this.store.pipe(select(selectUserById(id))).subscribe(res => {
 					if (res) {
 						this.user = res;
-						this.rolesSubject.next(this.user.roles);
+						this.rolesSubject.next(this.user.role_id);
 						this.addressSubject.next(this.user.address);
-						this.soicialNetworksSubject.next(this.user.socialNetworks);
 						this.oldUser = Object.assign({}, this.user);
 						this.initUser();
 					}
@@ -88,9 +88,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
 			} else {
 				this.user = new User();
 				this.user.clear();
-				this.rolesSubject.next(this.user.roles);
+				this.rolesSubject.next(this.user.role_id);
 				this.addressSubject.next(this.user.address);
-				this.soicialNetworksSubject.next(this.user.socialNetworks);
+				//this.soicialNetworksSubject.next(this.user.socialNetworks);
 				this.oldUser = Object.assign({}, this.user);
 				this.initUser();
 			}
@@ -172,8 +172,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
 		this.createForm();
 		this.hasFormErrors = false;
 		this.userForm.markAsPristine();
-  this.userForm.markAsUntouched();
-  this.userForm.updateValueAndValidity();
+		this.userForm.markAsUntouched();
+		this.userForm.updateValueAndValidity();
 	}
 
 	/**
@@ -212,9 +212,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
 		const controls = this.userForm.controls;
 		const _user = new User();
 		_user.clear();
-		_user.roles = this.rolesSubject.value;
+		_user.role_id = this.rolesSubject.value;
 		_user.address = this.addressSubject.value;
-		_user.socialNetworks = this.soicialNetworksSubject.value;
 		_user.accessToken = this.user.accessToken;
 		_user.refreshToken = this.user.refreshToken;
 		_user.pic = this.user.pic;

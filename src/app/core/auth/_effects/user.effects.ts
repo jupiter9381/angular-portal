@@ -45,6 +45,7 @@ export class UserEffects {
       map(response => {
         const result: QueryResultsModel = response[0];
         const lastQuery: QueryParamsModel = response[1];
+        console.log(response);
         return new UsersPageLoaded({
           users: result.items,
           totalCount: result.totalCount,

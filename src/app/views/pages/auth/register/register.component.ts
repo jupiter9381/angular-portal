@@ -142,7 +142,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		_user.username = controls.username.value;
 		_user.fullname = controls.fullname.value;
 		_user.password = controls.password.value;
-		_user.roles = [];
 		this.auth.register(_user).pipe(
 			tap(user => {
 				if (user) {

@@ -9,21 +9,20 @@ export class User extends BaseModel {
   email: string;
   accessToken: string;
   refreshToken: string;
-  roles: number[];
+  role_id: string;
   pic: string;
   fullname: string;
   occupation: string;
   companyName: string;
   phone: string;
   address: Address;
-  socialNetworks: SocialNetworks;
 
   clear(): void {
     this.id = undefined;
     this.username = '';
     this.password = '';
     this.email = '';
-    this.roles = [];
+    this.role_id = '';
     this.fullname = '';
     this.accessToken = 'access-token-' + Math.random();
     this.refreshToken = 'access-token-' + Math.random();
@@ -33,7 +32,5 @@ export class User extends BaseModel {
     this.phone = '';
     this.address = new Address();
     this.address.clear();
-    this.socialNetworks = new SocialNetworks();
-    this.socialNetworks.clear();
   }
 }

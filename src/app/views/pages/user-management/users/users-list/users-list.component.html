@@ -65,14 +65,14 @@
 				[dataSource]="dataSource"
 				matSort
 				#sort1="matSort"
-				matSortActive="id"
+				matSortActive="username"
 				matSortDirection="asc"
 				matSortDisableClear>
 				<!-- Checkbox Column -->
 
 				<!-- Table with selection -->
 				<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
-				<ng-container matColumnDef="select">
+				<!-- <ng-container matColumnDef="select">
 					<mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
 						<mat-checkbox (change)="$event ? masterToggle() : null"
 							[checked]="selection.hasValue() && isAllSelected()"
@@ -83,13 +83,7 @@
 						<mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
 						</mat-checkbox>
 					</mat-cell>
-				</ng-container>
-
-				<ng-container matColumnDef="id">
-					<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
-					<mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
-					<mat-cell *matCellDef="let user">{{user.id}}</mat-cell>
-				</ng-container>
+				</ng-container> -->
 
 				<ng-container matColumnDef="username">
 					<mat-header-cell *matHeaderCellDef mat-sort-header>Username</mat-header-cell>
@@ -111,7 +105,7 @@
 				<ng-container matColumnDef="_roles">
 					<mat-header-cell *matHeaderCellDef>Roles</mat-header-cell>
 					<mat-cell *matCellDef="let user">
-						<span>{{ getUserRolesStr(user) }}</span>
+						<span>{{ user.role_id ? user.role_id.title : '' }}</span>
 					</mat-cell>
 				</ng-container>
 

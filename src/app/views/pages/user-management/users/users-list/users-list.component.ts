@@ -15,6 +15,8 @@ import { each, find } from 'lodash';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../../../core/reducers';
 
+
+
 // Services
 import { LayoutUtilsService, MessageType, QueryParamsModel } from '../../../../../core/_base/crud';
 // Models
@@ -44,7 +46,7 @@ import { SubheaderService } from '../../../../../core/_base/layout';
 export class UsersListComponent implements OnInit, OnDestroy {
 	// Table fields
 	dataSource: UsersDataSource;
-	displayedColumns = ['select', 'id', 'username', 'email', 'fullname', '_roles', 'actions'];
+	displayedColumns = ['username', 'email', 'fullname', '_roles', 'actions'];
 	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 	@ViewChild('sort1', {static: true}) sort: MatSort;
 	// Filter fields
@@ -121,6 +123,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
 
 		// Init DataSource
 		this.dataSource = new UsersDataSource(this.store);
+		
 		const entitiesSubscription = this.dataSource.entitySubject.pipe(
 			skip(1),
 			distinctUntilChanged()
@@ -128,7 +131,6 @@ export class UsersListComponent implements OnInit, OnDestroy {
 			this.usersResult = res;
 		});
 		this.subscriptions.push(entitiesSubscription);
-
 		// First Load
 		of(undefined).pipe(take(1), delay(1000)).subscribe(() => { // Remove this line, just loading imitation
 			this.loadUsersList();
@@ -235,16 +237,16 @@ export class UsersListComponent implements OnInit, OnDestroy {
 	 *
 	 * @param user: User
 	 */
-	getUserRolesStr(user: User): string {
-		const titles: string[] = [];
-		each(user.roles, (roleId: number) => {
-			const _role = find(this.allRoles, (role: Role) => role.id === roleId);
-			if (_role) {
-				titles.push(_role.title);
-			}
-		});
-		return titles.join(', ');
-	}
+	// getUserRolesStr(user: User): string {
+	// 	const titles: string[] = [];
+	// 	each(user.roles, (roleId: number) => {
+	// 		const _role = find(this.allRoles, (role: Role) => role.id === roleId);
+	// 		if (_role) {
+	// 			titles.push(_role.title);
+	// 		}
+	// 	});
+	// 	return titles.join(', ');
+	// }
 
 	/**
 	 * Redirect to edit page
