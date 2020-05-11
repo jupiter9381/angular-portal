@@ -4,7 +4,7 @@
     "description": "Packages used by Angular",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "node server.js",
         "build": "ng build --prod",
         "test": "ng test",
         "lint": "ng lint",
@@ -104,7 +104,7 @@
         "webpack-rtl-plugin": "2.0.0"
     },
     "engines": {
-        "node": "12.14.1",
-        "npm": "6.13.4"
+        "node": "10.19.0",
+        "npm": "6.14.4"
     }
 }
