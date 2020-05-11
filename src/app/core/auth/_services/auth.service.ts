@@ -76,7 +76,7 @@ export class AuthService {
   updateUser(_user: User): Observable<any> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    return this.http.put(environment.apiUrl +  API_USERS_URL, _user, {headers: httpHeaders});
+    return this.http.post(environment.apiUrl +  API_USERS_URL + '/update', _user, {headers: httpHeaders});
   }
 
   // CREATE =>  POST: add a new user to the server
@@ -124,7 +124,7 @@ export class AuthService {
   updateRole(role: Role): Observable<any> {
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
-    return this.http.put(environment.apiUrl +  API_ROLES_URL, role, {headers: httpHeaders});
+    return this.http.post(environment.apiUrl +  API_ROLES_URL + '/update', role, {headers: httpHeaders});
   }
 
   // DELETE => delete the role from the server

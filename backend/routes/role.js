@@ -29,4 +29,9 @@ router.post('/create', async (req, res) => {
             res.status(200).send(response);
         })
 })
+
+router.post('/update', async (req, res) => {
+    const result = await Role.findOneAndUpdate({id: req.body.id}, req.body);
+    res.status(200).send(result);
+})
 module.exports = router;

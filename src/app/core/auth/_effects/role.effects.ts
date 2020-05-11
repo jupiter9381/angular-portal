@@ -93,7 +93,8 @@ export class RoleEffects {
         this.store.dispatch(this.showActionLoadingDistpatcher);
         return this.auth.updateRole(payload.role);
       }),
-      map(() => {
+      map((res) => {
+        console.log(res);
         return this.hideActionLoadingDistpatcher;
       }),
     );

@@ -67,15 +67,19 @@ export class UserRolesListComponent implements OnInit {
 	 * Assign role
 	 */
 	assignRole() {
-
+		console.log(this.roleIdForAdding);
+		console.log(this.allRoles);
 		if (this.roleIdForAdding === 0) {
 			return;
 		}
 
 		const role = find(this.allRoles, (_role: Role) => {
-			return _role.id === (+this.roleIdForAdding);
+			console.log(_role['_id']);
+			console.log(this.roleIdForAdding);
+			return _role['_id'] == this.roleIdForAdding;
 		});
 
+		console.log(role)
 		if (role) {
 			this.assignedRoles.push(role);
 			remove(this.unassignedRoles, (el) => el.id === role.id);
@@ -101,7 +105,7 @@ export class UserRolesListComponent implements OnInit {
 	 */
 	updateRoles() {
 		const _roles = [];
-		each(this.assignedRoles, elem => _roles.push(elem.id));
-		this.rolesSubject.next(_roles);
+		each(this.assignedRoles, elem => _roles.push(elem['_id']));
+		this.rolesSubject.next(_roles[0]);
 	}
 }

@@ -74,7 +74,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
 		const routeSubscription =  this.activatedRoute.params.subscribe(params => {
 			const id = params.id;
-			console.log(params.id);
 			if (id && id > 0) {
 				this.store.pipe(select(selectUserById(id))).subscribe(res => {
 					if (res) {

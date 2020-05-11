@@ -216,7 +216,6 @@ export class RoleEditDialogComponent implements OnInit, OnDestroy {
 		this.loadingAfterSubmit = true;
 		this.viewLoading = true;
 		this.store.dispatch(new RoleOnServerCreated({ role: _role }));
-		console.log(_role);
 		this.componentSubscriptions = this.store.pipe(
 			delay(1000), // Remove this line
 			select(selectLastCreatedRoleId)

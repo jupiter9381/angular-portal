@@ -53,6 +53,10 @@ router.delete('/:userid', (req, res) => {
             data: result
         })
      });
-   
+})
+
+router.post('/update', async (req, res)  => {
+    const result = await User.findOneAndUpdate({id: req.body.id}, req.body);
+    res.status(200).send(result);
 })
 module.exports = router;
