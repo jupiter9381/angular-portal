@@ -53,7 +53,7 @@ export class AuthService {
   }
 
   register(user: User): Observable<any> {
-    user.roles = [2]; // Manager
+    user.role_id = ""; // Manager
     user.accessToken = 'access-token-' + Math.random();
     user.refreshToken = 'access-token-' + Math.random();
     user.pic = './assets/media/users/default.jpg';
@@ -269,7 +269,7 @@ export class AuthService {
     return this.getAllUsers().pipe(
       map((users: User[]) => {
         // tslint:disable-next-line
-        return some(users, (user: User) => some(user.roles, (_roleId: number) => _roleId === roleId));
+        return some(users, (user: User) => some(user.role, (_roleId: number) => _roleId === roleId));
       })
     );
   }
