@@ -31,6 +31,11 @@ router.post('/', (req, res) => {
         })
 })
 
+router.post('/getUserByToken', async (req, res) => {
+    const token = req.body.token;
+    const user = await User.findOne({accessToken: token});
+    res.status(200).send(user);
+})
 router.post('/login', (req, res) => {
     const {email, password} = req.body;
     User.findOne({email: email, password: password}, (err, user) => {

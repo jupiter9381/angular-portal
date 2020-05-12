@@ -198,6 +198,14 @@ export class PageConfig {
       },
       orders: {
         page: {title: 'Orders', desc: ''}
+      },
+      invoices: {
+        edit: {
+          page: {title: 'Edit invoice', desc: ''}
+        },
+        add: {
+          page: {title: 'Create invoice', desc: ''}
+        }
       }
     },
     'user-management': {

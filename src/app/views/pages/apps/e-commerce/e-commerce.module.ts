@@ -25,6 +25,9 @@ import {
 	productsReducer,
 	ProductEffects,
 	ProductsService,
+	invoicesReducer,
+	InvoiceEffects,
+	InvoicesService,
 	productRemarksReducer,
 	ProductRemarkEffects,
 	ProductRemarksService,
@@ -83,6 +86,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { environment } from '../../../../../environments/environment';
 import { NgbProgressbarModule, NgbProgressbarConfig } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPermissionsModule } from 'ngx-permissions';
+import { InvoicesListComponent } from './invoices/invoices-list/invoices-list.component';
+import { InvoiceEditComponent } from './invoices/invoice-edit/invoice-edit.component';
 
 // tslint:disable-next-line:class-name
 const routes: Routes = [
@@ -121,6 +126,14 @@ const routes: Routes = [
 				path: 'products/edit/:id',
 				component: ProductEditComponent
 			},
+			{
+				path: 'invoices',
+				component: InvoicesListComponent
+			},
+			{
+				path: 'invoices/edit/:id',
+				component: InvoiceEditComponent
+			}
 		]
 	}
 ];
@@ -162,6 +175,8 @@ const routes: Routes = [
 		}) : [],
 		StoreModule.forFeature('products', productsReducer),
 		EffectsModule.forFeature([ProductEffects]),
+		StoreModule.forFeature('invoices', invoicesReducer),
+		EffectsModule.forFeature([InvoiceEffects]),
 		StoreModule.forFeature('customers', customersReducer),
 		EffectsModule.forFeature([CustomerEffects]),
 		StoreModule.forFeature('productRemarks', productRemarksReducer),
@@ -193,6 +208,7 @@ const routes: Routes = [
 		ProductRemarksService,
 		ProductSpecificationsService,
 		ProductsService,
+		InvoicesService,
 		TypesUtilsService,
 		LayoutUtilsService
 	],
@@ -217,7 +233,10 @@ const routes: Routes = [
 		ProductEditComponent,
 		RemarksListComponent,
 		SpecificationsListComponent,
-		SpecificationEditDialogComponent
+		SpecificationEditDialogComponent,
+		// Invoices
+		InvoicesListComponent,
+		InvoiceEditComponent
 	]
 })
 export class ECommerceModule { }

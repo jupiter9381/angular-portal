@@ -1,0 +1,86 @@
+<kt-portlet>
+	<kt-portlet-header [sticky]="true" [title]="getComponentTitle()" 
+		[class]="'card-head-lg'" [viewLoading$]="loading$">
+		<ng-container ktPortletTools>
+			<a (click)="goBackWithoutId()" class="btn btn-secondary mr-2"  mat-raised-button matTooltip="Back to the invoices list">
+				<i class="la la-arrow-left"></i>
+				<span class="hidden-mobile">Back</span>
+			</a>
+			<a href="javascript:;" class="btn btn-secondary mr-2" (click)="reset()" [disabled]="selectedTab !== 0" mat-raised-button matTooltip="Reset changes">
+				<i class="la la-cog"></i>
+				<span class="hidden-mobile">Reset</span>
+			</a>
+			<a href="javascript:;" class="btn btn-primary mr-2" color="primary" (click)="onSumbit(false)" mat-raised-button matTooltip="Save & Continue">
+				<span class="hidden-mobile">Save</span>
+			</a>
+			<button mat-icon-button [matMenuTriggerFor]="menu" color="primary">
+				<mat-icon>more_vert</mat-icon>
+			</button>
+			<mat-menu #menu="matMenu">
+				<button mat-menu-item color="primary" (click)="onSumbit(true)">Save & Exit</button>
+				<button mat-menu-item color="primary">Save & Duplicate</button>
+				<button mat-menu-item color="primary" (click)="onSumbit(false)">Save & Continue</button>
+			</mat-menu>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<mat-tab-group [(selectedIndex)]="selectedTab" *ngIf="invoice">
+			<mat-tab label="Basic info">
+				<ng-template matTabContent>
+					<div *ngIf="invoice">
+						<!--begin::Form-->
+						<form [formGroup]="invoiceForm" class="form form-group-seperator-dashed">
+
+							<kt-alert *ngIf="hasFormErrors" type="warn" [showCloseButton]="true" [duration]="10000" (close)="onAlertClose($event)">
+								Oh snap! Change a few things up and try submitting again.
+							</kt-alert>
+
+							<div class="form-section form-section-first">
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-4 kt-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<input matInput placeholder="Enter Customer" formControlName="customer">
+												<mat-error>
+													Customer is
+													<strong>required</strong>
+												</mat-error>
+												<mat-hint align="start">Please enter
+													<strong>Customer</strong>
+												</mat-hint>
+											</mat-form-field>
+                                        </div>
+                                        <div class="col-md-4 kt-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<input matInput placeholder="Enter Amount" formControlName="amount" type="number">
+												<mat-error>
+													Amount is
+													<strong>required</strong>
+												</mat-error>
+												<mat-hint align="start">Please enter
+													<strong>Amount</strong>
+												</mat-hint>
+											</mat-form-field>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+
+					<!--end::Form-->
+				</ng-template>
+			</mat-tab>
+			<!-- <mat-tab label="Invoice remarks" [disabled]="!invoice || !invoice.id">
+				<ng-template matTabContent>
+					<kt-remarks-list [invoiceId$]="invoiceId$"></kt-remarks-list>
+				</ng-template>
+			</mat-tab>
+			<mat-tab label="Invoice specifications" [disabled]="!invoice || !invoice.id">
+				<ng-template matTabContent>
+					<kt-specifications-list [invoiceId$]="invoiceId$"></kt-specifications-list>
+				</ng-template>
+			</mat-tab> -->
+		</mat-tab-group>
+	</kt-portlet-body>
+</kt-portlet>

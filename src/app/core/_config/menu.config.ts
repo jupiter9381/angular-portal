@@ -390,6 +390,13 @@ export class MenuConfig {
               page: '/user-management/roles'
             }
           ]
+        },
+        {
+          title: 'Invoices',
+          root: true,
+          bullet: 'dot',
+          icon: 'flaticon2-user-outline-symbol',
+          page: '/ecommerce/invoices'
         }
       ]
     },
