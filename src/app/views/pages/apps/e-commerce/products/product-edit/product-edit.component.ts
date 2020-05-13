@@ -95,9 +95,6 @@ export class ProductEditComponent implements OnInit, OnDestroy {
 	 * On init
 	 */
 	ngOnInit() {
-		for (let i = 2019; i > 1945; i--) {
-			this.availableYears.push(i);
-		}
 		this.loading$ = this.loadingSubject.asObservable();
 		this.loadingSubject.next(true);
 		this.activatedRoute.params.subscribe(params => {

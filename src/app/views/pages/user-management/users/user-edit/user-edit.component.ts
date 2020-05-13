@@ -70,6 +70,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 	 * On init
 	 */
 	ngOnInit() {
+		console.log(this.store);
 		this.loading$ = this.store.pipe(select(selectUsersActionLoading));
 
 		const routeSubscription =  this.activatedRoute.params.subscribe(params => {

@@ -94,7 +94,6 @@ export class RoleEffects {
         return this.auth.updateRole(payload.role);
       }),
       map((res) => {
-        console.log(res);
         return this.hideActionLoadingDistpatcher;
       }),
     );
@@ -106,7 +105,6 @@ export class RoleEffects {
       ofType<RoleOnServerCreated>(RoleActionTypes.RoleOnServerCreated),
       mergeMap(({payload}) => {
         this.store.dispatch(this.showActionLoadingDistpatcher);
-        console.log(payload.role)
         return this.auth.createRole(payload.role).pipe(
           tap(res => {
             this.store.dispatch(new RoleCreated({role: res}));

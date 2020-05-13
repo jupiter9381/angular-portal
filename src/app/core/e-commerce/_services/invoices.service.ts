@@ -22,7 +22,7 @@ export class InvoicesService {
   // CREATE =>  POST: add a new invoice to the server
   createInvoice(invoice): Observable<InvoiceModel> {
     const httpHeaders = this.httpUtils.getHTTPHeaders();
-    return this.http.post<InvoiceModel>(API_INVOICES_URL, invoice, {headers: httpHeaders});
+    return this.http.post<InvoiceModel>(API_INVOICES_URL + '/create', invoice, {headers: httpHeaders});
   }
 
   // READ

@@ -62,7 +62,33 @@
 												</mat-hint>
 											</mat-form-field>
 										</div>
-									</div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                            <mat-form-field class="mat-form-field-fluid">
+                                                <input matInput [matDatepicker]="picker"
+                                                    placeholder="Choose a Created Date"
+                                                    formControlName="created_date" />
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                                <mat-hint align="start">Please enter
+                                                    <strong>Created Date</strong> in 'mm/dd/yyyy' format</mat-hint>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                            <mat-form-field class="mat-form-field-fluid">
+                                                <input matInput [matDatepicker]="picker1"
+                                                    placeholder="Choose a Created Date"
+                                                    formControlName="due_date" />
+                                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker1></mat-datepicker>
+                                                <mat-hint align="start">Please enter
+                                                    <strong>Due Date</strong> in 'mm/dd/yyyy' format</mat-hint>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
 								</div>
 							</div>
 						</form>

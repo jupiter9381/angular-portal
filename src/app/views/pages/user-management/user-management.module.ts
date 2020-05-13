@@ -70,10 +70,10 @@ const routes: Routes = [
 				path: 'users',
 				component: UsersListComponent
 			},
-			{
-				path: 'users:id',
-				component: UsersListComponent
-			},
+			// {
+			// 	path: 'users:id',
+			// 	component: UsersListComponent
+			// },
 			{
 				path: 'users/add',
 				component: UserEditComponent

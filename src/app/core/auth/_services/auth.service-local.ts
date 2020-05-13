@@ -129,7 +129,7 @@ export class AuthService {
 
   // DELETE => delete the role from the server
   deleteRole(roleId: number): Observable<Role> {
-    const url = `${API_ROLES_URL}/${roleId}`;
+    const url = environment.apiUrl + `${API_ROLES_URL}/${roleId}`;
     return this.http.delete<Role>(url);
   }
 

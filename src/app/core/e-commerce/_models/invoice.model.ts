@@ -6,6 +6,8 @@ export class InvoiceModel extends BaseModel {
   id: number;
   customer: string;
   amount: number;
+  created_date: Date;
+  due_date: Date;
   model: string;
   manufacture: string;
   modelYear: number;
@@ -25,6 +27,8 @@ export class InvoiceModel extends BaseModel {
   clear() {
     this.customer = '';
     this.model = '';
+    this.created_date = null;
+    this.due_date = null;
     this.amount = 0;
     this.manufacture = '';
     this.modelYear = 2000;

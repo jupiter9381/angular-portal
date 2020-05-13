@@ -70,10 +70,10 @@ export class AddressComponent implements OnInit {
 	 */
 	createForm() {
 		this.addressForm = this.fb.group({
-			addressLine: [this.addressSubject.value.addressLine, Validators.required],
-			city: [this.addressSubject.value.city, Validators.required],
-			state: [this.addressSubject.value.state, Validators.required],
-			postCode: [this.addressSubject.value.postCode, Validators.required]
+			addressLine: [this.addressSubject.value.addressLine],
+			city: [this.addressSubject.value.city],
+			state: [this.addressSubject.value.state],
+			postCode: [this.addressSubject.value.postCode]
 		});
 	}
 

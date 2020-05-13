@@ -50,7 +50,6 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 	loading$: Observable<boolean>;
 	invoiceForm: FormGroup;
 	hasFormErrors = false;
-	availableYears: number[] = [];
 	filteredColors: Observable<string[]>;
 	filteredManufactures: Observable<string[]>;
 	// Private password
@@ -95,12 +94,8 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 	 * On init
 	 */
 	ngOnInit() {
-		for (let i = 2019; i > 1945; i--) {
-			this.availableYears.push(i);
-		}
 		this.loading$ = this.loadingSubject.asObservable();
 		this.loadingSubject.next(true);
-		console.log(this.store);
 		this.activatedRoute.params.subscribe(params => {
 			const id = params.id;
 			if (id && id > 0) {
@@ -108,7 +103,6 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 				this.store.pipe(
 					select(selectInvoiceById(id))
 				).subscribe(result => {
-					console.log(result);
 					if (!result) {
 						this.loadInvoiceFromService(id);
 						return;
@@ -188,24 +182,9 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 		this.invoiceForm = this.invoiceFB.group({
 			customer: [this.invoice.customer, Validators.required],
 			amount: [this.invoice.amount, Validators.required],
-			// manufacture: [this.invoice.manufacture, Validators.required],
-			// mileage: [this.invoice.mileage, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-			// description: [this.invoice.description],
-			// color: [this.invoice.color, Validators.required],
-			// price: [this.invoice.price, [Validators.required, Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-			// VINCode: [this.invoice.VINCode, Validators.required]
+			created_date: [this.invoice.created_date, Validators.required],
+			due_date: [this.invoice.due_date, Validators.required]
 		});
-
-		// this.filteredManufactures = this.invoiceForm.controls.manufacture.valueChanges
-		// 	.pipe(
-		// 		startWith(''),
-		// 		map(val => this.filterManufacture(val.toString()))
-		// 	);
-		// this.filteredColors = this.invoiceForm.controls.color.valueChanges
-		// 	.pipe(
-		// 		startWith(''),
-		// 		map(val => this.filterColor(val.toString()))
-		// 	);
 	}
 
 	/**
@@ -310,21 +289,10 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 		const controls = this.invoiceForm.controls;
 		const _invoice = new InvoiceModel();
 		_invoice.id = this.invoice.id;
-		_invoice.model = controls.model.value;
-		_invoice.manufacture = controls.manufacture.value;
-		_invoice.modelYear = +controls.modelYear.value;
-		_invoice.mileage = +controls.mileage.value;
-		_invoice.description = controls.description.value;
-		_invoice.color = controls.color.value;
-		_invoice.price = +controls.price.value;
-		_invoice.condition = +controls.condition.value;
-		_invoice.status = +controls.status.value;
-		_invoice.VINCode = controls.VINCode.value;
-		_invoice._userId = 1; // TODO: get version from userId
-		_invoice._createdDate = this.invoice._createdDate;
-		_invoice._updatedDate = this.invoice._updatedDate;
-		_invoice._updatedDate = this.typesUtilsService.getDateStringFromDate();
-		_invoice._createdDate = this.invoice.id > 0 ? _invoice._createdDate : _invoice._updatedDate;
+		_invoice.customer = controls.customer.value;
+		_invoice.amount = controls.amount.value;
+		_invoice.created_date = controls.created_date.value;
+		_invoice.due_date = controls.due_date.value;
 		return _invoice;
 	}
 
@@ -336,6 +304,7 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 	 */
 	addInvoice(_invoice: InvoiceModel, withBack: boolean = false) {
 		this.loadingSubject.next(true);
+		console.log(_invoice);
 		this.store.dispatch(new InvoiceOnServerCreated({ invoice: _invoice }));
 		this.componentSubscriptions = this.store.pipe(
 			delay(1000),
@@ -395,7 +364,7 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 			return result;
 		}
 
-		result = `Edit invoice - ${this.invoice.manufacture} ${this.invoice.model}, ${this.invoice.modelYear}`;
+		result = `Edit invoice - ${this.invoice.customer} `;
 		return result;
 	}
 

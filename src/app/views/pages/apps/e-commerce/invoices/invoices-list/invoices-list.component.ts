@@ -34,6 +34,8 @@ import {
 // https://v5.material.angular.io/components/sort/overview
 // https://v5.material.angular.io/components/table/overview#sorting
 // https://www.youtube.com/watch?v=NSt9CI3BXv4
+
+import * as _moment from 'moment';
 @Component({
 	// tslint:disable-next-line:component-selector
 	selector: 'kt-invoices-list',

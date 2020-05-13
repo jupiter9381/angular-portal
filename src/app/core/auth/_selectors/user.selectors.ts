@@ -23,7 +23,7 @@ export const selectUsersPageLoading = createSelector(
 
 export const selectUsersActionLoading = createSelector(
     selectUsersState,
-    usersState => usersState.actionsloading
+    usersState => {console.log(usersState); return usersState.actionsloading;}
 );
 
 export const selectLastCreatedUserId = createSelector(

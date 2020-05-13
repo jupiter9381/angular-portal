@@ -25,6 +25,7 @@ export class PermissionEffects {
       ofType<AllPermissionsRequested>(PermissionActionTypes.AllPermissionsRequested),
       mergeMap(() => this.auth.getAllPermissions()),
       map((result: Permission[]) => {
+        console.log(result);
         return new AllPermissionsLoaded({
           permissions: result
         });

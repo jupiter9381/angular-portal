@@ -133,6 +133,10 @@ const routes: Routes = [
 			{
 				path: 'invoices/edit/:id',
 				component: InvoiceEditComponent
+			},
+			{
+				path: 'invoices/add',
+				component: InvoiceEditComponent
 			}
 		]
 	}

@@ -26,9 +26,12 @@ mongoose.connect(MONGOURL)
 var userRouter = require('./backend/routes/user');
 var roleRouter = require('./backend/routes/role');
 var invoiceRouter = require('./backend/routes/invoice');
+var permissionRouter = require('./backend/routes/permission');
 app.use('/api/users', userRouter);
 app.use('/api/roles', roleRouter);
 app.use('/api/invoices', invoiceRouter);
+app.use('/api/permissions', permissionRouter);
+app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/dist/index.html')));
 module.exports = app;
 // Start the app by listening on the default Heroku port
 app.listen(process.env.PORT || 8080);

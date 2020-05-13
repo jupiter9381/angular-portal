@@ -111,7 +111,7 @@ export class RoleEditDialogComponent implements OnInit, OnDestroy {
 				rootPermission.level = element.level;
 				rootPermission.parentId = element.parentId;
 				rootPermission.title = element.title;
-				const children = _allPermissions.filter(el => el.parentId && el.parentId === element.id);
+				const children = _allPermissions.filter(el => el.parentId && el.parentId === element.id );
 				children.forEach(child => {
 					const hasUserChildPermission = this.role.permissions.some(t => t === child.id);
 					const childPermission = new Permission();
@@ -174,6 +174,8 @@ export class RoleEditDialogComponent implements OnInit, OnDestroy {
 		}
 
 		const editedRole = this.prepareRole();
+		//console.log(editedRole);
+		//return;
 		if (editedRole.id > 0) {
 			this.updateRole(editedRole);
 		} else {

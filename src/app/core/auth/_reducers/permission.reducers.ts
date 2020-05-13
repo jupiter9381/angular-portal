@@ -24,7 +24,8 @@ export function permissionsReducer(state = initialPermissionsState, action: Perm
         _isAllPermissionsLoaded: false
       };
     case PermissionActionTypes.AllPermissionsLoaded:
-      return adapter.addAll(action.payload.permissions, {
+      console.log(action.payload)
+      return adapter.addAll(action.payload.permissions['items'], {
         ...state,
         _isAllPermissionsLoaded: true
       });

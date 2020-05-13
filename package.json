@@ -4,7 +4,7 @@
     "description": "Packages used by Angular",
     "scripts": {
         "ng": "ng",
-        "start": "node server.js",
+        "start": "node --max_old_space_size=8192 server.js",
         "build": "ng build --prod",
         "test": "ng test",
         "lint": "ng lint",

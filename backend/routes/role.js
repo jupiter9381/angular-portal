@@ -34,4 +34,20 @@ router.post('/update', async (req, res) => {
     const result = await Role.findOneAndUpdate({id: req.body.id}, req.body);
     res.status(200).send(result);
 })
+
+router.delete('/:roleid', (req, res) => {
+    const roleid = req.params.roleid;
+    Role.findOneAndRemove({'id':roleid}, (err, result) => {
+        if (err){
+            res.status(500).send({
+                message: 'error',
+                data:err
+            });
+        }
+        return res.status(200).send({
+            message: 'success',
+            data: result
+        })
+     });
+})
 module.exports = router;
