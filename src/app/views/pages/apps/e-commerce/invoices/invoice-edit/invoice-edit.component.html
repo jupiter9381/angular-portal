@@ -40,7 +40,24 @@
 									<div class="row">
 										<div class="col-md-4 kt-margin-bottom-10-mobile">
 											<mat-form-field class="mat-form-field-fluid">
-												<input matInput placeholder="Enter Customer" formControlName="customer">
+												<input matInput placeholder="Enter invoice number" formControlName="invoiceNumber"> 
+												<mat-error>
+													Invoice No is
+													<strong>required</strong>
+												</mat-error>
+												<mat-hint align="start">Please enter
+													<strong>Invoice No.</strong>
+												</mat-hint>
+											</mat-form-field>
+                                        </div>
+										<div class="col-md-4 kt-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<!-- <input matInput placeholder="Enter Customer" formControlName="customer"> -->
+												<mat-select formControlName="customer" placeholder="Enter Customer">
+													<mat-option *ngFor="let user of users" [value]="user._id">
+														{{user.fullname}}
+													</mat-option>
+												</mat-select>
 												<mat-error>
 													Customer is
 													<strong>required</strong>
@@ -50,7 +67,11 @@
 												</mat-hint>
 											</mat-form-field>
                                         </div>
-                                        <div class="col-md-4 kt-margin-bottom-10-mobile">
+                                    </div>
+								</div>
+								<div class="form-group">
+									<div class="row">
+										<div class="col-md-4 kt-margin-bottom-10-mobile">
 											<mat-form-field class="mat-form-field-fluid">
 												<input matInput placeholder="Enter Amount" formControlName="amount" type="number">
 												<mat-error>
@@ -62,8 +83,23 @@
 												</mat-hint>
 											</mat-form-field>
 										</div>
-                                    </div>
-                                </div>
+										<div class="col-md-4 kt-margin-bottom-10-mobile">
+											<mat-form-field class="mat-form-field-fluid">
+												<mat-select formControlName="status" placeholder="Choose status">
+													<mat-option [value]="1">Paid</mat-option>
+													<mat-option [value]="0">Unpaid</mat-option>
+												</mat-select>
+												<mat-error>
+													Amount is
+													<strong>required</strong>
+												</mat-error>
+												<mat-hint align="start">Please enter
+													<strong>Amount</strong>
+												</mat-hint>
+											</mat-form-field>
+										</div>
+									</div>
+								</div>
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-lg-4 kt-margin-bottom-20-mobile">
@@ -80,12 +116,23 @@
                                         <div class="col-lg-4 kt-margin-bottom-20-mobile">
                                             <mat-form-field class="mat-form-field-fluid">
                                                 <input matInput [matDatepicker]="picker1"
-                                                    placeholder="Choose a Created Date"
+                                                    placeholder="Choose a Due Date"
                                                     formControlName="due_date" />
                                                 <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker1></mat-datepicker>
                                                 <mat-hint align="start">Please enter
                                                     <strong>Due Date</strong> in 'mm/dd/yyyy' format</mat-hint>
+                                            </mat-form-field>
+										</div>
+										<div class="col-lg-4 kt-margin-bottom-20-mobile">
+                                            <mat-form-field class="mat-form-field-fluid">
+                                                <input matInput [matDatepicker]="picker2"
+                                                    placeholder="Choose a Paid Date"
+                                                    formControlName="paid_date" />
+                                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker2></mat-datepicker>
+                                                <mat-hint align="start">Please enter
+                                                    <strong>Paid Date</strong> in 'mm/dd/yyyy' format</mat-hint>
                                             </mat-form-field>
                                         </div>
                                     </div>

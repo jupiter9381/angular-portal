@@ -12,10 +12,7 @@ export const selectInvoicesState = createFeatureSelector<InvoicesState>('invoice
 
 export const selectInvoiceById = (invoiceId: number) => createSelector(
     selectInvoicesState,
-    invoicesState => {
-      console.log(invoicesState);
-      return invoicesState.entities[invoiceId]
-    }
+    invoicesState => invoicesState.entities[invoiceId]
 );
 
 export const selectInvoicesPageLoading = createSelector(

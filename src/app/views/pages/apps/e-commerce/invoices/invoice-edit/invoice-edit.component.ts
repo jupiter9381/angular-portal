@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 // RxJS
 import { Observable, BehaviorSubject, Subscription, of } from 'rxjs';
-import { map, startWith, delay, first } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, tap, skip, take, map, startWith, delay, first } from 'rxjs/operators';
 // NGRX
 import { Store, select } from '@ngrx/store';
 import { Dictionary, Update } from '@ngrx/entity';
@@ -14,7 +14,7 @@ import { AppState } from '../../../../../../core/reducers';
 // Layout
 import { SubheaderService, LayoutConfigService } from '../../../../../../core/_base/layout';
 // CRUD
-import { LayoutUtilsService, TypesUtilsService, MessageType } from '../../../../../../core/_base/crud';
+import { LayoutUtilsService, TypesUtilsService, MessageType, QueryParamsModel } from '../../../../../../core/_base/crud';
 // Services and Models
 import {
 	selectLastCreatedInvoiceId,
@@ -25,6 +25,12 @@ import {
 	InvoiceUpdated,
 	InvoicesService
 } from '../../../../../../core/e-commerce';
+
+import {
+	UsersDataSource,
+	UsersPageLoaded,
+	UsersPageRequested
+} from '../../../../../../core/auth';
 
 const AVAILABLE_COLORS: string[] =
 	['Red', 'CadetBlue', 'Gold', 'LightSlateGrey', 'RoyalBlue', 'Crimson', 'Blue', 'Sienna', 'Indigo', 'Green', 'Violet',
@@ -52,10 +58,17 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 	hasFormErrors = false;
 	filteredColors: Observable<string[]>;
 	filteredManufactures: Observable<string[]>;
+
+	dataSource: UsersDataSource;
+	users: any;
 	// Private password
 	private componentSubscriptions: Subscription;
 	// sticky portlet header margin
 	private headerMargin: number;
+
+	// Subscriptions
+	private subscriptions: Subscription[] = [];
+	
 
 	/**
 	 * Component constructor
@@ -122,6 +135,41 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 			const style = getComputedStyle(document.getElementById('kt_header'));
 			this.headerMargin = parseInt(style.height, 0);
 		};
+
+		// Init DataSource
+		this.dataSource = new UsersDataSource(this.store);
+		
+		const entitiesSubscription = this.dataSource.entitySubject.pipe(
+			skip(1),
+			distinctUntilChanged()
+		).subscribe(res => {
+			this.users = res;
+			this.users = res.filter(obj => {
+				if(!obj.role_id) return false;
+				if(obj.role_id.isCoreRole == true) return false;
+				return true;
+			})
+			if(this.invoice.customer) {
+				let customer = this.invoice.customer;
+				this.invoiceForm.get('customer').setValue(customer['_id']);
+			}
+		});
+		this.subscriptions.push(entitiesSubscription);
+
+		// First Load
+		of(undefined).pipe(take(1), delay(1000)).subscribe(() => { // Remove this line, just loading imitation
+			this.loadUsersList();
+		});
+	}
+
+	/**
+	 * Load users list
+	 */
+	loadUsersList() {
+		const queryParams = new QueryParamsModel(
+			{}
+		);
+		this.store.dispatch(new UsersPageRequested({ page: queryParams }));
 	}
 
 	loadInvoice(_invoice, fromService: boolean = false) {
@@ -180,11 +228,15 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 	 */
 	createForm() {
 		this.invoiceForm = this.invoiceFB.group({
-			customer: [this.invoice.customer, Validators.required],
+			invoiceNumber: [this.invoice.invoiceNumber, Validators.required],
+			customer: ['', Validators.required],
 			amount: [this.invoice.amount, Validators.required],
-			created_date: [this.invoice.created_date, Validators.required],
-			due_date: [this.invoice.due_date, Validators.required]
+			created_date: [this.invoice.created_date],
+			due_date: [this.invoice.due_date],
+			paid_date: [this.invoice.paid_date],
+			status: [this.invoice.status, Validators.required]
 		});
+		
 	}
 
 	/**
@@ -293,6 +345,9 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 		_invoice.amount = controls.amount.value;
 		_invoice.created_date = controls.created_date.value;
 		_invoice.due_date = controls.due_date.value;
+		_invoice.paid_date = controls.paid_date.value;
+		_invoice.status = controls.status.value;
+		_invoice.invoiceNumber = controls.invoiceNumber.value;
 		return _invoice;
 	}
 
@@ -304,7 +359,6 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 	 */
 	addInvoice(_invoice: InvoiceModel, withBack: boolean = false) {
 		this.loadingSubject.next(true);
-		console.log(_invoice);
 		this.store.dispatch(new InvoiceOnServerCreated({ invoice: _invoice }));
 		this.componentSubscriptions = this.store.pipe(
 			delay(1000),
@@ -364,7 +418,7 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 			return result;
 		}
 
-		result = `Edit invoice - ${this.invoice.customer} `;
+		result = `Edit invoice - ${this.invoice.invoiceNumber} `;
 		return result;
 	}
 

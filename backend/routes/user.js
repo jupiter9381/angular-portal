@@ -12,6 +12,12 @@ router.get('/', async (req, res) => {
     })
 })
 
+router.get('/:userid', async (req, res) => {
+    const userid = req.params.userid;
+    const user = await User.find({id: userid});
+    res.status(200).send(user);
+})
+
 router.post('/findUsers', async (req, res) => {
     const results = await User.find({}).populate('role_id');
     res.send({
@@ -33,7 +39,7 @@ router.post('/', (req, res) => {
 
 router.post('/getUserByToken', async (req, res) => {
     const token = req.body.token;
-    const user = await User.findOne({accessToken: token});
+    const user = await User.findOne({accessToken: token}).populate('role_id');
     res.status(200).send(user);
 })
 router.post('/login', (req, res) => {
@@ -41,7 +47,7 @@ router.post('/login', (req, res) => {
     User.findOne({email: email, password: password}, (err, user) => {
         if(err) res.response(400).send(err);
         res.status(200).send(user);
-    });
+    }).populate('role_id');
 })
 
 router.delete('/:userid', (req, res) => {

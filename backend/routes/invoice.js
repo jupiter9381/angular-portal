@@ -3,7 +3,17 @@ var router = express.Router();
 const { Invoice } = require('../Model/invoice');
 
 router.post('/find', async (req, res) => {
-    const results = await Invoice.find({});
+    const results = await Invoice.find({}).populate('customer');
+    res.send({
+        message: 'success',
+        items: results,
+        totalCount: results.length
+    })
+})
+
+router.post('/find/:userid', async (req, res) => {
+    const userid = req.params.userid;
+    const results = await Invoice.find({customer: userid}).populate('customer');
     res.send({
         message: 'success',
         items: results,
@@ -13,7 +23,7 @@ router.post('/find', async (req, res) => {
 
 router.get('/:invoiceid', async (req, res) => {
     const invoiceid = req.params.invoiceid;
-    const invoice = await Invoice.find({id: invoiceid});
+    const invoice = await Invoice.find({id: invoiceid}).populate('customer');
     res.status(200).send(invoice);
 })
 

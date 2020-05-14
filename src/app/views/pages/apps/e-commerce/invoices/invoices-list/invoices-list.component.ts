@@ -45,7 +45,7 @@ import * as _moment from 'moment';
 export class InvoicesListComponent implements OnInit, OnDestroy {
 	// Table fields
 	dataSource: InvoicesDataSource;
-	displayedColumns = ['customer', 'amount', 'created_date', 'due_date', 'actions'];
+	displayedColumns = ['customer', 'invoiceNumber', 'amount', 'status', 'created_date', 'due_date', 'paid_date', 'actions'];
 	@ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 	@ViewChild('sort1', {static: true}) sort: MatSort;
 	// Filter fields
@@ -268,7 +268,7 @@ export class InvoicesListComponent implements OnInit, OnDestroy {
 		let messages = [];
 		this.selection.selected.forEach(elem => {
 			messages.push({
-				text: `${elem.manufacture} ${elem.model} ${elem.modelYear}`,
+				text: `${elem.invoiceNumber}`,
 				id: elem.VINCode,
 				status: elem.status
 			});
@@ -287,7 +287,7 @@ export class InvoicesListComponent implements OnInit, OnDestroy {
 
 		this.selection.selected.forEach(elem => {
 			_messages.push({
-				text: `${elem.manufacture} ${elem.model} ${elem.modelYear}`,
+				text: `${elem.invoiceNumber}`,
 				id: elem.VINCode,
 				status: elem.status,
 				statusTitle: this.getItemStatusString(elem.status),
@@ -354,9 +354,9 @@ export class InvoicesListComponent implements OnInit, OnDestroy {
 	getItemStatusString(status: number = 0): string {
 		switch (status) {
 			case 0:
-				return 'Selling';
+				return 'Unpaid';
 			case 1:
-				return 'Sold';
+				return 'Paid';
 		}
 		return '';
 	}

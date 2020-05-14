@@ -143,6 +143,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 			.login(authData.email, authData.password)
 			.pipe(
 				tap(user => {
+					localStorage.setItem('is_admin', user.role_id['isCoreRole']);
+					localStorage.setItem('userid', user['_id']);
+					localStorage.setItem('permissions', user.role_id['permissions']);
 					if (user) {
 						this.store.dispatch(new Login({authToken: user.accessToken}));
 						this.router.navigateByUrl(this.returnUrl); // Main page

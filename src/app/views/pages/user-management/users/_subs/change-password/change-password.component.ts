@@ -73,7 +73,7 @@ export class ChangePasswordComponent implements OnInit {
 	 */
 	loadData() {
 		this.auth.getUserById(this.userId).subscribe(res => {
-			this.user = res;
+			this.user = res[0];
 			this.createForm();
 		});
 	}
@@ -118,11 +118,12 @@ export class ChangePasswordComponent implements OnInit {
 		}
 
 		this.user.password = controls.password.value;
+		console.log(this.user);
 		const updatedUser: Update<User> = {
 			id: this.user.id,
 			changes: this.user
 		};
-
+		console.log(updatedUser);
 		this.store.dispatch(new UserUpdated({
 			partialUser: updatedUser,
 			user: this.user

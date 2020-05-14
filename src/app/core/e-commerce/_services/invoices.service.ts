@@ -35,14 +35,16 @@ export class InvoicesService {
   }
 
   // Server should return filtered/sorted result
-  findInvoices(queryParams: QueryParamsModel): Observable<QueryResultsModel> {
+  findInvoices(queryParams: any): Observable<QueryResultsModel> {
     // Note: Add headers if needed (tokens/bearer)
     //const httpHeaders = this.httpUtils.getHTTPHeaders();
     const httpHeaders = new HttpHeaders();
     httpHeaders.set('Content-Type', 'application/json');
     //const httpParams = this.httpUtils.getFindHTTPParams(queryParams);
-
-    const url = API_INVOICES_URL + '/find';
+    let url = API_INVOICES_URL + '/find';
+    if(localStorage.getItem('is_admin') == 'false') { 
+      url += '/' + localStorage.getItem('userid');
+    }
     return this.http.post<QueryResultsModel>(url, queryParams, {
       headers: httpHeaders
     });

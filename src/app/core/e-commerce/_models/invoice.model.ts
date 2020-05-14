@@ -8,15 +8,15 @@ export class InvoiceModel extends BaseModel {
   amount: number;
   created_date: Date;
   due_date: Date;
-  model: string;
-  manufacture: string;
+  paid_date: Date;
+  invoiceNumber: string;
+  status: number;
   modelYear: number;
   mileage: number;
   description: string;
   color: string;
   price: number;
   condition: number;
-  status: number;
   VINCode: string;
 
   // tslint:disable-next-line
@@ -26,11 +26,11 @@ export class InvoiceModel extends BaseModel {
 
   clear() {
     this.customer = '';
-    this.model = '';
     this.created_date = null;
     this.due_date = null;
+    this.paid_date = null;
     this.amount = 0;
-    this.manufacture = '';
+    this.invoiceNumber = '';
     this.modelYear = 2000;
     this.mileage = 0;
     this.description = '';
