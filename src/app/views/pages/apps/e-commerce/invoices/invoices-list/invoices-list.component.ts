@@ -56,6 +56,12 @@ export class InvoicesListComponent implements OnInit, OnDestroy {
 	// Selection
 	selection = new SelectionModel<InvoiceModel>(true, []);
 	invoicesResult: InvoiceModel[] = [];
+
+	CREATE_INVOICE_ROLE = 10;
+	READ_INVOICE_ROLE = 6;
+	EDIT_INVOICE_ROLE = 7;
+	DELETE_INVOICE_ROLE = 8;
+
 	private subscriptions: Subscription[] = [];
 
 	/**
@@ -137,6 +143,7 @@ export class InvoicesListComponent implements OnInit, OnDestroy {
 			}); // Remove this line, just loading imitation
 		});
 		this.subscriptions.push(routeSubscription);
+
 	}
 
 	/**
@@ -404,5 +411,14 @@ export class InvoicesListComponent implements OnInit, OnDestroy {
 				return 'primary';
 		}
 		return '';
+	}
+
+	isCheckPermission(role) {
+		let permissions = localStorage.getItem('permissions').split(',');
+		let result = permissions.filter(obj => {
+		if(role == parseInt(obj)) return true;
+		})
+		if(result.length > 0) return true;
+		return false;
 	}
 }

@@ -58,6 +58,7 @@ export class AsideLeftComponent implements OnInit, AfterViewInit {
     }
   };
 
+  is_admin = false;
   /**
    * Component Constructor
    *
@@ -101,6 +102,8 @@ export class AsideLeftComponent implements OnInit, AfterViewInit {
 
     this.asideClasses = this.htmlClassService.getClasses('aside', true).toString();
     this.asideLogo = this.getAsideLogo();
+
+    console.log(localStorage.getItem('permissions'));
   }
 
   getAsideLogo() {
@@ -233,5 +236,14 @@ export class AsideLeftComponent implements OnInit, AfterViewInit {
     }
 
     return toggle;
+  }
+
+  isCheckPermission(role) {
+    let permissions = localStorage.getItem('permissions').split(',');
+    let result = permissions.filter(obj => {
+      if(role == parseInt(obj)) return true;
+    })
+    if(result.length > 0) return true;
+    return false;
   }
 }

@@ -380,14 +380,18 @@ export class MenuConfig {
           root: true,
           bullet: 'dot',
           icon: 'flaticon2-user-outline-symbol',
+          role: 1,
           submenu: [
             {
               title: 'Users',
-              page: '/user-management/users'
+              page: '/user-management/users',
+              role: 1
             },
             {
               title: 'Roles',
-              page: '/user-management/roles'
+              page: '/user-management/roles',
+              is_admin: true,
+              role: 1
             }
           ]
         },
@@ -396,8 +400,9 @@ export class MenuConfig {
           root: true,
           bullet: 'dot',
           icon: 'flaticon2-user-outline-symbol',
-          page: '/ecommerce/invoices'
-        }
+          page: '/ecommerce/invoices',
+          role: 2
+        },
       ]
     },
   };

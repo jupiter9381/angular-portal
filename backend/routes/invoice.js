@@ -3,11 +3,13 @@ var router = express.Router();
 const { Invoice } = require('../Model/invoice');
 
 router.post('/find', async (req, res) => {
-    const results = await Invoice.find({}).populate('customer');
+    const {pageSize, pageNumber, sortField, sortOrder} = req.body;
+    const totalCount = await Invoice.count({});
+    const results = await Invoice.find({}).skip(pageNumber * pageSize).limit(pageSize).populate('customer');
     res.send({
         message: 'success',
         items: results,
-        totalCount: results.length
+        totalCount: totalCount
     })
 })
 

@@ -88,6 +88,8 @@ import { NgbProgressbarModule, NgbProgressbarConfig } from '@ng-bootstrap/ng-boo
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { InvoicesListComponent } from './invoices/invoices-list/invoices-list.component';
 import { InvoiceEditComponent } from './invoices/invoice-edit/invoice-edit.component';
+import { AttachmentListComponent } from './invoices/_subs/attachments/attachment-list/attachment-list.component';
+import { AttachmentEditComponent } from './invoices/_subs/attachments/attachment-edit/attachment-edit.component';
 
 // tslint:disable-next-line:class-name
 const routes: Routes = [
@@ -240,7 +242,9 @@ const routes: Routes = [
 		SpecificationEditDialogComponent,
 		// Invoices
 		InvoicesListComponent,
-		InvoiceEditComponent
+		InvoiceEditComponent,
+		AttachmentListComponent,
+		AttachmentEditComponent
 	]
 })
 export class ECommerceModule { }

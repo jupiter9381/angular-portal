@@ -57,6 +57,11 @@ export class UsersListComponent implements OnInit, OnDestroy {
 	usersResult: User[] = [];
 	allRoles: Role[] = [];
 
+	CREATE_USER_ROLE = 10;
+	READ_USER_ROLE = 6;
+	EDIT_USER_ROLE = 7;
+	DELETE_USER_ROLE = 8;
+
 	// Subscriptions
 	private subscriptions: Subscription[] = [];
 
@@ -255,5 +260,14 @@ export class UsersListComponent implements OnInit, OnDestroy {
 	 */
 	editUser(id) {
 		this.router.navigate(['../users/edit', id], { relativeTo: this.activatedRoute });
+	}
+
+	isCheckPermission(role) {
+		let permissions = localStorage.getItem('permissions').split(',');
+		let result = permissions.filter(obj => {
+		if(role == parseInt(obj)) return true;
+		})
+		if(result.length > 0) return true;
+		return false;
 	}
 }

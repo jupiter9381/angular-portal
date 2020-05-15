@@ -42,16 +42,16 @@
 		[ngbTooltip]="item.tooltip" data-placement="right">
 
 		<!-- if menu item hasn't submenu -->
-		<a *ngIf="!item.submenu" [routerLink]="item.page" class="menu-link menu-toggle">
+		<a *ngIf="!item.submenu && isCheckPermission(item.role)" [routerLink]="item.page" class="menu-link menu-toggle">
 			<ng-container [ngTemplateOutlet]="menuItemTextTemplate" [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
 		</a>
 		<!-- if menu item has sumnenu child  -->
-		<a *ngIf="item.submenu" class="menu-link menu-toggle">
+		<a *ngIf="item.submenu && isCheckPermission(item.role)" class="menu-link menu-toggle">
 			<ng-container [ngTemplateOutlet]="menuItemTextTemplate" [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
 		</a>
 
 		<!-- if menu item has submenu child then recursively call new menu item component -->
-		<div *ngIf="item.submenu" class="menu-submenu">
+		<div *ngIf="item.submenu && isCheckPermission(item.role)" class="menu-submenu">
 			<span class="menu-arrow"></span>
 			<div *ngIf="item['custom-class'] === 'menu-item--submenu-fullheight'" class="menu-wrapper">
 				<!-- wrap submenu to full height -->

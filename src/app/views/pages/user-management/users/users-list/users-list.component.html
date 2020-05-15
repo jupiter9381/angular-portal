@@ -2,7 +2,7 @@
 	<!-- PORTLET LOADING | Binded to TABLE Datasource -->
 	<!-- See prop => '~/core/_crud/models/data-sources/_base.datasource.ts' (loading$) -->
 	<kt-portlet-header [title]="'Users list'" [class]="'card-head-lg'" [viewLoading$]="dataSource.loading$">
-		<ng-container ktPortletTools>
+		<ng-container ktPortletTools *ngIf="isCheckPermission(CREATE_USER_ROLE)">
 			<button [routerLink]="['../users/add']" mat-raised-button color="primary" matTooltip="Create new User">New user</button>
 			<!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->
 			<!-- mat-raised-button | Rectangular contained button w/ elevation  -->
@@ -15,7 +15,7 @@
 		<!-- start::FILTERS & GROUP ACTIONS -->
 		<div class="form kt-margin-b-30">
 			<!-- start::FILTERS -->
-			<div class="form-filtration">
+			<div class="form-filtration d-none">
 				<div class="row align-items-center">
 					<div class="col-md-2 kt-margin-bottom-10-mobile">
 						<mat-form-field class="mat-form-field-fluid">
@@ -59,7 +59,7 @@
 
 		<!-- MATERIAL TABLE | Binded to datasources -->
 		<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->
-		<div class="mat-table__wrapper">
+		<div class="mat-table__wrapper" [ngClass]="{'d-none': !isCheckPermission(READ_USER_ROLE)}">
 			<mat-table class="lmat-elevation-z8"
 				#table
 				[dataSource]="dataSource"
@@ -112,10 +112,10 @@
 				<ng-container matColumnDef="actions">
 					<mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
 					<mat-cell *matCellDef="let user">
-						<button (click)="editUser(user.id)" mat-icon-button color="primary" matTooltip="Edit user">
+						<button (click)="editUser(user.id)" mat-icon-button color="primary" matTooltip="Edit user" *ngIf="isCheckPermission(EDIT_USER_ROLE)">
 							<mat-icon>create</mat-icon>
 						</button>&nbsp;
-						<button mat-icon-button color="warn" matTooltip="Delete user" type="button" (click)="deleteUser(user)">
+						<button mat-icon-button color="warn" matTooltip="Delete user" type="button" (click)="deleteUser(user)" *ngIf="isCheckPermission(DELETE_USER_ROLE)">
 							<mat-icon>delete</mat-icon>
 						</button>
 					</mat-cell>
@@ -130,7 +130,7 @@
 		</div>
 
 		<!-- start: BOTTOM -->
-		<div class="mat-table__bottom">
+		<div class="mat-table__bottom" [ngClass]="{'d-none': !isCheckPermission(READ_USER_ROLE)}">
 			<!-- MATERIAL SPINNER | Url: 'https://material.angular.io/components/progress-spinner/overview' -->
 			<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
 			<!-- MATERIAL PAGINATOR | Binded to dasources -->
