@@ -118,12 +118,15 @@ export class ChangePasswordComponent implements OnInit {
 		}
 
 		this.user.password = controls.password.value;
-		console.log(this.user);
+		if(controls.password.value != controls.confirmPassword) {
+			const message = `Please check password and confirm password.`;
+			this.layoutUtilsService.showActionNotification(message, MessageType.Update, 5000, true, false);
+			return;
+		}
 		const updatedUser: Update<User> = {
 			id: this.user.id,
 			changes: this.user
 		};
-		console.log(updatedUser);
 		this.store.dispatch(new UserUpdated({
 			partialUser: updatedUser,
 			user: this.user

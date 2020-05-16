@@ -1,0 +1,39 @@
+<div class="card card-custom" [ngClass]="{ 'card-body-progress' : viewLoading, 'card-body-progress-overlay' : loadingAfterSubmit }">
+	<div class="card-header">
+		<div class="card-title">
+			<h3 class="card-label">
+				{{ data.isNew ? 'Create' : 'Update'}} specification
+			</h3>
+		</div>
+	</div>
+	<!--begin::Form-->
+	<form class="form" [formGroup]="attachmentEditForm" autocomplete="off">
+		<div class="card-body">
+			<div class="card-body-progress">
+				<mat-spinner [diameter]="20"></mat-spinner>
+			</div>
+
+			<div class="form-section form-section-first">
+				<div class="form-group">
+					<mat-form-field class="mat-form-field-fluid">
+                        <input [hidden]="true" (change)="onFileSelect($event)" type="file" accept="all/*" #fileSelect ng2FileSelect [uploader]="uploader" onclick="this.value = null">
+                        <input readonly matInput formControlName="filename" placeholder="Enter Attachment File" />
+                        <button type="button" matSuffix mat-icon-button (click)="fileSelect.click();" matTooltip="Choose File" [matTooltipPosition]="'above'">
+                            <i class="material-icons">folder</i>
+                        </button>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer">
+			<div class="d-flex justify-content-between">
+				<div class="mr-2"></div>
+				<div>
+					<button type="button" mat-raised-button cdkFocusInitial (click)="onNoClick()" matTooltip="Cancel changes">Cancel</button>&nbsp;
+					<button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="viewLoading" matTooltip="Save changes">Save</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<!--end::Form-->
+</div>

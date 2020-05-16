@@ -14,3 +14,4 @@ from './product-specifications.service.fake'; // You have to comment this, when 
 // from './product-specifications.service'; // You have to uncomment this, when your real back-end is done
 
 export { InvoicesService } from './invoices.service';
+export { InvoiceAttachmentsService } from './invoice-attachments.service';

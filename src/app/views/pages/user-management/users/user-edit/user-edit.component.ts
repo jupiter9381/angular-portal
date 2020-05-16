@@ -21,7 +21,8 @@ import {
 	selectUserById,
 	UserOnServerCreated,
 	selectLastCreatedUserId,
-	selectUsersActionLoading
+	selectUsersActionLoading,
+	selectUsersInStore
 } from '../../../../../core/auth';
 
 @Component({
@@ -40,6 +41,8 @@ export class UserEditComponent implements OnInit, OnDestroy {
 	soicialNetworksSubject = new BehaviorSubject<SocialNetworks>(new SocialNetworks());
 	userForm: FormGroup;
 	hasFormErrors = false;
+
+	users = [];
 	// Private properties
 	private subscriptions: Subscription[] = [];
 
@@ -70,9 +73,10 @@ export class UserEditComponent implements OnInit, OnDestroy {
 	 * On init
 	 */
 	ngOnInit() {
-		console.log(this.store);
 		this.loading$ = this.store.pipe(select(selectUsersActionLoading));
-
+		this.store.pipe(select(selectUsersInStore)).subscribe(res => {
+			this.users = res.items;
+		});
 		const routeSubscription =  this.activatedRoute.params.subscribe(params => {
 			const id = params.id;
 			if (id && id > 0) {
@@ -197,12 +201,21 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
 		const editedUser = this.prepareUser();
 
-		if (editedUser.id > 0) {
-			this.updateUser(editedUser, withBack);
-			return;
+		const existingUsers = this.users.filter(user => {
+			if(user.id == editedUser.id) return false;
+			if(user.username == editedUser.username || user.email == editedUser.email) return true;
+		})
+		if(existingUsers.length == 0) {
+			if (editedUser.id > 0) {
+				this.updateUser(editedUser, withBack);
+				return;
+			}
+			this.addUser(editedUser, withBack);
+		} else {
+			const message = `Username or email is already existing.`;
+			this.layoutUtilsService.showActionNotification(message, MessageType.Update, 5000, true, true);
 		}
-
-		this.addUser(editedUser, withBack);
+		
 	}
 
 	/**

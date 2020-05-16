@@ -102,8 +102,6 @@ export class AsideLeftComponent implements OnInit, AfterViewInit {
 
     this.asideClasses = this.htmlClassService.getClasses('aside', true).toString();
     this.asideLogo = this.getAsideLogo();
-
-    console.log(localStorage.getItem('permissions'));
   }
 
   getAsideLogo() {

@@ -7,6 +7,8 @@ export { ProductRemarkModel } from './_models/product-remark.model';
 export { ProductSpecificationModel } from './_models/product-specification.model';
 export { ProductModel } from './_models/product.model';
 export { InvoiceModel } from './_models/invoice.model';
+export { InvoiceAttachmentModel } from './_models/invoice-attachment.model';
+
 export { SPECIFICATIONS_DICTIONARY } from './_consts/specification.dictionary';
 
 // DataSources
@@ -15,6 +17,7 @@ export { ProductRemarksDataSource } from './_data-sources/product-remarks.dataso
 export { ProductSpecificationsDataSource } from './_data-sources/product-specifications.datasource';
 export { ProductsDataSource } from './_data-sources/products.datasource';
 export { InvoicesDataSource } from './_data-sources/invoices.datasource';
+export { InvoiceAttachmentsDataSource } from './_data-sources/invoice-attachments.datasource';
 // Actions
 // Customer Actions =>
 export {
@@ -96,6 +99,20 @@ export {
     ProductSpecificationOnServerCreated
 } from './_actions/product-specification.actions';
 
+// ProductSpecification Actions =>
+export {
+    InvoiceAttachmentActionTypes,
+    InvoiceAttachmentActions,
+    InvoiceAttachmentCreated,
+    InvoiceAttachmentUpdated,
+    OneInvoiceAttachmentDeleted,
+    ManyInvoiceAttachmentsDeleted,
+    InvoiceAttachmentsPageRequested,
+    InvoiceAttachmentsPageLoaded,
+    InvoiceAttachmentsPageCancelled,
+    InvoiceAttachmentsPageToggleLoading,
+    InvoiceAttachmentOnServerCreated
+} from './_actions/invoice-attachment.actions';
 
 // Effects
 export { CustomerEffects } from './_effects/customer.effects';
@@ -103,6 +120,7 @@ export { ProductEffects } from './_effects/product.effects';
 export { InvoiceEffects } from './_effects/invoice.effects';
 export { ProductRemarkEffects } from './_effects/product-remark.effects';
 export { ProductSpecificationEffects } from './_effects/product-specification.effects';
+export { InvoiceAttachmentEffects } from './_effects/invoice-attachment.effects';
 
 // Reducers
 export { customersReducer } from './_reducers/customer.reducers';
@@ -110,7 +128,7 @@ export { productsReducer } from './_reducers/product.reducers';
 export { invoicesReducer } from './_reducers/invoice.reducers';
 export { productRemarksReducer } from './_reducers/product-remark.reducers';
 export { productSpecificationsReducer } from './_reducers/product-specification.reducers';
-
+export { invoiceAttachmentsReducer } from './_reducers/invoice-attachment.reducers';
 // Selectors
 // Customer selectors =>
 export {
@@ -165,9 +183,21 @@ export {
     selectPSShowInitWaitingMessage
 } from './_selectors/product-specification.selectors';
 
+// InvoiceAttachment selectors =>
+export {
+    selectInvoiceAttachmentById,
+    selectInvoiceAttachmentsInStore,
+    selectInvoiceAttachmentsPageLoading,
+    //selectCurrentProductIdInStoreForProductSpecs,
+    selectInvoiceAttachmentsState,
+    selectLastCreatedInvoiceAttachmentId,
+    selectPSInvoiceShowInitWaitingMessage
+} from './_selectors/invoice-attachment.selectors';
+
 // Services
 export { CustomersService } from './_services/';
 export { ProductsService } from './_services/';
 export { ProductRemarksService } from './_services/';
 export { ProductSpecificationsService } from './_services/';
 export { InvoicesService } from './_services/';
+export { InvoiceAttachmentsService } from './_services/';

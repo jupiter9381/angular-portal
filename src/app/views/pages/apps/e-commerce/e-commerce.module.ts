@@ -32,8 +32,11 @@ import {
 	ProductRemarkEffects,
 	ProductRemarksService,
 	productSpecificationsReducer,
+	invoiceAttachmentsReducer,
 	ProductSpecificationEffects,
-	ProductSpecificationsService
+	InvoiceAttachmentEffects,
+	ProductSpecificationsService,
+	InvoiceAttachmentsService
 } from '../../../../core/e-commerce';
 // Core => Utils
 import { HttpUtilsService,
@@ -89,8 +92,9 @@ import { NgxPermissionsModule } from 'ngx-permissions';
 import { InvoicesListComponent } from './invoices/invoices-list/invoices-list.component';
 import { InvoiceEditComponent } from './invoices/invoice-edit/invoice-edit.component';
 import { AttachmentListComponent } from './invoices/_subs/attachments/attachment-list/attachment-list.component';
-import { AttachmentEditComponent } from './invoices/_subs/attachments/attachment-edit/attachment-edit.component';
-
+import { AttachmentEditDialogComponent } from './invoices/_subs/attachments/attachment-edit/attachment-edit-dialog.component';
+//import { FileSelectDirective } from 'ng2-file-upload';
+import { FileUploadModule} from 'ng2-file-upload';
 // tslint:disable-next-line:class-name
 const routes: Routes = [
 	{
@@ -189,6 +193,10 @@ const routes: Routes = [
 		EffectsModule.forFeature([ProductRemarkEffects]),
 		StoreModule.forFeature('productSpecifications', productSpecificationsReducer),
 		EffectsModule.forFeature([ProductSpecificationEffects]),
+		StoreModule.forFeature('invoiceAttachments', invoiceAttachmentsReducer),
+		EffectsModule.forFeature([InvoiceAttachmentEffects]),
+
+		FileUploadModule
 	],
 	providers: [
 		ModuleGuard,
@@ -213,6 +221,7 @@ const routes: Routes = [
 		CustomersService,
 		ProductRemarksService,
 		ProductSpecificationsService,
+		InvoiceAttachmentsService,
 		ProductsService,
 		InvoicesService,
 		TypesUtilsService,
@@ -224,7 +233,8 @@ const routes: Routes = [
 		DeleteEntityDialogComponent,
 		FetchEntityDialogComponent,
 		UpdateStatusDialogComponent,
-		SpecificationEditDialogComponent
+		SpecificationEditDialogComponent,
+		AttachmentEditDialogComponent
 	],
 	declarations: [
 		ECommerceComponent,
@@ -244,7 +254,9 @@ const routes: Routes = [
 		InvoicesListComponent,
 		InvoiceEditComponent,
 		AttachmentListComponent,
-		AttachmentEditComponent
+		AttachmentEditDialogComponent,
+
+		//FileSelectDirective
 	]
 })
 export class ECommerceModule { }

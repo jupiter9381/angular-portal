@@ -149,7 +149,7 @@ export class InvoiceEditComponent implements OnInit, OnDestroy {
 				if(obj.role_id.isCoreRole == true) return false;
 				return true;
 			})
-			if(this.invoice.customer) {
+			if(this.invoice && this.invoice.customer) {
 				let customer = this.invoice.customer;
 				this.invoiceForm.get('customer').setValue(customer['_id']);
 			}
