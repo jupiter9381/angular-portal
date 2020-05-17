@@ -32,7 +32,6 @@ import { FooterComponent } from './footer/footer.component';
 import { SubheaderComponent } from './subheader/subheader.component';
 import { BrandComponent } from './brand/brand.component';
 import { TopbarComponent } from './header/topbar/topbar.component';
-import { MenuHorizontalComponent } from './header/menu-horizontal/menu-horizontal.component';
 import { PartialsModule } from '../partials/partials.module';
 import { BaseComponent } from './base/base.component';
 import { PagesModule } from '../pages/pages.module';
@@ -59,8 +58,6 @@ import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from
     // aside left menu components
     AsideLeftComponent,
 
-    // horizontal menu components
-    MenuHorizontalComponent,
   ],
   exports: [
     BaseComponent,
@@ -80,8 +77,6 @@ import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from
     // aside left menu components
     AsideLeftComponent,
 
-    // horizontal menu components
-    MenuHorizontalComponent,
   ],
   providers: [
     HtmlClassService,
