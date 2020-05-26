@@ -19,11 +19,13 @@ router.get('/:userid', async (req, res) => {
 })
 
 router.post('/findUsers', async (req, res) => {
-    const results = await User.find({}).populate('role_id');
+    const {pageSize, pageNumber, sortField, sortOrder} = req.body;
+    const totalCount = await User.count({});
+    const results = await User.find({}).skip(pageNumber * pageSize).limit(pageSize).populate('role_id');
     res.send({
         message: 'success',
         items: results,
-        totalCount: results.length
+        totalCount: totalCount
     })
 })
 

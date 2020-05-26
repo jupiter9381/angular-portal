@@ -118,7 +118,7 @@ export class ChangePasswordComponent implements OnInit {
 		}
 
 		this.user.password = controls.password.value;
-		if(controls.password.value != controls.confirmPassword) {
+		if(controls.password.value != controls.confirmPassword.value) {
 			const message = `Please check password and confirm password.`;
 			this.layoutUtilsService.showActionNotification(message, MessageType.Update, 5000, true, false);
 			return;
