@@ -13,6 +13,8 @@ import { fromEvent, merge, BehaviorSubject, Subscription, Observable, of } from 
 import { Store, select } from '@ngrx/store';
 import { Update } from '@ngrx/entity';
 import { AppState } from '../../../../../../../../core/reducers';
+
+import {saveAs} from 'file-saver';
 // CRUD
 import { QueryParamsModel, LayoutUtilsService, MessageType } from '../../../../../../../../core/_base/crud';
 // Services and models
@@ -24,7 +26,8 @@ import {
 	ManyInvoiceAttachmentsDeleted,
 	InvoiceAttachmentUpdated,
 	InvoiceAttachmentOnServerCreated,
-	selectLastCreatedInvoiceAttachmentId
+	selectLastCreatedInvoiceAttachmentId,
+	InvoiceAttachmentsService
 } from '../../../../../../../../core/e-commerce';
 // Components
 import { AttachmentEditDialogComponent } from '../attachment-edit/attachment-edit-dialog.component';
@@ -72,7 +75,9 @@ export class AttachmentListComponent implements OnInit, OnDestroy {
 	 */
 	constructor(private store: Store<AppState>,
 		           public dialog: MatDialog,
-		           private layoutUtilsService: LayoutUtilsService) { }
+				   private layoutUtilsService: LayoutUtilsService,
+					private invoiceAttachmentsService: InvoiceAttachmentsService
+	) { }
 
 	/**
 	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
@@ -267,6 +272,7 @@ export class AttachmentListComponent implements OnInit, OnDestroy {
 		dialogRef.afterClosed().subscribe(res => {
 			if (res && res.isUpdated) {
 				newAttachment.file = res.value;
+				newAttachment.invoiceId = this.invoiceId;
 				this.store.dispatch(new InvoiceAttachmentOnServerCreated({ invoiceAttachment: newAttachment }));
 				this.componentSubscriptions = this.store.pipe(select(selectLastCreatedInvoiceAttachmentId)).subscribe(result => {
 					if (!result) {
@@ -311,5 +317,13 @@ export class AttachmentListComponent implements OnInit, OnDestroy {
 				this.layoutUtilsService.showActionNotification(saveMessage, MessageType.Update, 10000, true, true);
 			}
 		});
+	}
+
+	downloadAttachement(item) {
+		let filename = item.file;
+		this.invoiceAttachmentsService.downloadAttachment(filename)
+			.subscribe(res => {
+				saveAs(res, filename);
+			});
 	}
 }

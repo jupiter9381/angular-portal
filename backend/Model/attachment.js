@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const attachmentSchema = mongoose.Schema({
     id: Number,
-    invoiceid: Number,
+    invoiceId: Number,
     file: String
 });
 

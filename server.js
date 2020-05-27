@@ -33,6 +33,13 @@ app.use('/api/roles', roleRouter);
 app.use('/api/invoices', invoiceRouter);
 app.use('/api/permissions', permissionRouter);
 app.use('/api/invoiceAttachments', attachmentRouter);
+
+app.post('/download', function(req, res){
+  const filename = req.body.filename;
+  const file = `${__dirname}/uploads/${filename}`;
+  res.sendFile(file); // Set disposition and send it.
+});
+
 app.get('/*', (req, res) => res.sendFile(path.join(__dirname, '/dist/index.html')));
 module.exports = app;
 // Start the app by listening on the default Heroku port

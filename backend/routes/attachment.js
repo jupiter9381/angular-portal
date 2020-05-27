@@ -36,7 +36,7 @@ router.post('/find/:invoiceid', async (req, res) => {
     const {pageSize, pageNumber, sortField, sortOrder} = req.body;
     const invoiceid = req.params.invoiceid;
     //const totalCount = await Invoice.count({});
-    const results = await Attachment.find({}).skip(pageNumber * pageSize).limit(pageSize);
+    const results = await Attachment.find({invoiceId: invoiceid}).skip(pageNumber * pageSize).limit(pageSize);
     res.send({
         message: 'success',
         items: results,
@@ -85,4 +85,5 @@ router.delete('/:attachmentid', (req, res) => {
         })
      });
 })
+
 module.exports = router;

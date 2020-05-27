@@ -61,17 +61,17 @@ export class AttachmentEditDialogComponent implements OnInit {
 		of(undefined).pipe(delay(1000)).subscribe(() => { // Remove this line
 			this.viewLoading = false; // Remove this line
 			this.cdr.detectChanges(); // Remove this line
-    }); // Remove this line
+		}); // Remove this line
     
-    this.uploader.onAfterAddingFile = (file) => {
-      file.withCredentials = false;
-    };
+		this.uploader.onAfterAddingFile = (file) => {
+			file.withCredentials = false;
+		};
 
-    this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
-      if(response) {
-        this.attachmentEditForm.controls['filename'].setValue(JSON.parse(response)['filename'])
-      }
-    }
+		this.uploader.onSuccessItem = (item: any, response: string, status: number, headers: any): any => {
+			if(response) {
+				this.attachmentEditForm.controls['filename'].setValue(JSON.parse(response)['filename'])
+			}
+		}
 	}
 
 	/**

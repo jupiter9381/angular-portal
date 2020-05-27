@@ -231,7 +231,7 @@ export class MenuConfig {
                 },
                 {
                   title: 'Modal',
-                  page: '/ngbootstrap/modal'
+                  page: '/ngbootstrap/modal' 
                 },
                 {
                   title: 'Pagination',

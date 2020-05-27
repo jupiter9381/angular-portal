@@ -88,7 +88,9 @@
 					matTooltip="Edit specification">
 					<mat-icon>create</mat-icon>
 				</button>
-				&nbsp;
+				<button type="button" mat-icon-button color="primary" matTooltip="Download" (click)="downloadAttachement(item)">
+					<mat-icon>cloud_download</mat-icon>
+				</button>
 				<button mat-icon-button color="warn" type="button" (click)="deleteAttachment(item)"
 					matTooltip="Delete specification">
 					<mat-icon>delete</mat-icon>

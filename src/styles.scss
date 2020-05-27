@@ -88,3 +88,6 @@
 .mat-dialog-container {
   padding: 0 !important;
 }
+.mat-table-wrapper-sub .mat-table .mat-cell:last-child {
+  flex: 0 0 150px;
+}

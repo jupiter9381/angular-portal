@@ -11,7 +11,9 @@ import { InvoiceAttachmentModel } from '../_models/invoice-attachment.model';
 import { SPECIFICATIONS_DICTIONARY } from '../_consts/specification.dictionary';
 
 //const API_INVOICEATTACHMENTS_URL = 'http://localhost:8080/' + 'api/invoiceAttachments';
+//const API_URL = "http://localhost:8080";
 const API_INVOICEATTACHMENTS_URL = 'api/invoiceAttachments';
+const API_URL = '';
 // Real REST API
 @Injectable()
 export class InvoiceAttachmentsService {
@@ -65,6 +67,10 @@ export class InvoiceAttachmentsService {
     return this.http.put<any>(url, body, {headers: httpHeaders});
   }
 
+  downloadAttachment(filename: string): Observable<any> {
+    const url = `${API_URL}/download`;
+    return this.http.post(url, {filename: filename}, {responseType: 'blob', headers: this.httpUtils.getHTTPHeaders()});
+  }
   getSpecs(): string[] {
     return SPECIFICATIONS_DICTIONARY;
   }
